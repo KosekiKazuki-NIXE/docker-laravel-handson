@@ -287,13 +287,13 @@ class SampleController extends Controller
                         $e_card_num_your = "皇帝";
                         $e_card_num_mine　= "皇帝";
 
-                    }else if ($e_card_num_your == 2){
+                    } elseif ($e_card_num_your == 2){
 
                         $e_card_answer = "あなたの勝ち";
                         $e_card_num_your = "市民";
                         $e_card_num_mine　= "皇帝";
 
-                    }else if ($e_card_num_your == 3){
+                    } elseif ($e_card_num_your == 3){
 
                         $e_card_answer = "あなたの負け";
                         $e_card_num_your = "奴隷";
@@ -305,13 +305,13 @@ class SampleController extends Controller
                         $e_card_num_your = "皇帝";
                         $e_card_num_mine = "市民";
 
-                    }else if ($e_card_num_your == 2){
+                    } else if ($e_card_num_your == 2){
 
                         $e_card_answer = "引き分け";
                         $e_card_num_your = "市民";
                         $e_card_num_mine = "市民";
 
-                    }else if ($e_card_num_your == 3){
+                    } else if ($e_card_num_your == 3){
 
                         $e_card_answer = "あなたの勝ち";
                         $e_card_num_your = "奴隷";
@@ -325,13 +325,13 @@ class SampleController extends Controller
                         $e_card_num_your = "皇帝";
                         $e_card_num_mine = "奴隷";
 
-                    }else if ($e_card_num_your == 2){
+                    } else if ($e_card_num_your == 2){
 
                         $e_card_answer = "あなたの負け";
                         $e_card_num_your = "市民";
                         $e_card_num_mine = "奴隷";
 
-                    }else if ($e_card_num_your == 3){
+                    } else if ($e_card_num_your == 3){
 
                         $e_card_answer = "引き分け";
                         $e_card_num_your = "奴隷";
