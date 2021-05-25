@@ -1,0 +1,146 @@
+.displays {
+    width: 925px;
+    display: inline-block; 
+    background: #808000; 
+    padding: 5psx 10px; 
+    color: hsl(0, 0%, 100%);
+}
+
+.golden_display {
+    width: 880px;
+    display: inline-block;
+    background: linear-gradient(gold, orange);;
+    padding: 5px 20px;
+    color: #000000;
+}
+
+.min_message {
+    width: 700px;
+    height:50px;
+    display: inline-block;
+    background: #ADD8E6; 
+    padding: 5px 20px;
+}
+
+.mass {
+    width: 900px;
+    padding: 10px; 
+    border: 2px solid #808000;
+    background: #ffffff;
+}
+
+#golden_mass {
+    width: 900px;
+    padding: 10px; 
+    border: 10px solid #000000;
+    background: gold;
+}
+
+#fontBig {
+    font-size:50px;
+    font-family: Meiryo;
+}
+
+.span_wave {
+    text-decoration: underline wavy red;
+}
+
+.right {
+ margin: 0 0 0 auto;/* 右寄せにする方法 BOXセット*/
+}
+
+.box {                      /*左の余白をぐいーっと伸ばして右に押し付けている状態なので、右寄せにした要素を左側には移動できない*/
+height: 100px;
+width:  55px;
+background-color: #f8f8ff;
+}
+
+.wrapper {
+width: 1000px;
+margin: 0 auto;
+}
+
+.scroll {
+    width:925px;         /*横*/
+    height:50px;        /*縦*/
+    overflow:scroll;    /*スクロールバー表示*/
+    overflow-x:hidden;  /*スクロールバー横を消す */
+}
+ 
+@media screen and (max-width:786px){
+    p{
+        color: red;
+    }
+
+    ul {
+    padding: 0;
+    width: 101px;     /* 1列分の幅+borderの1px */
+    height: 121px;    /* 4行分の高さ+borderの1px */
+    border-top: solid 1px #000;
+    border-left: solid 1px #000;
+    display: flex;
+    flex-direction: column;  /* 並び順を縦方向に変更 */
+    flex-wrap: wrap;         /* 折返し */
+    }
+    ul li {
+    list-style: none;
+    width: 100px;   /*一つのデータの大きさと幅*/
+    height: 30px;
+    border-bottom: solid 1px #000;
+    border-right: solid 1px #000;
+    box-sizing: border-box;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;    /* 文字を上下中央にする */
+   }
+}
+@media screen and (min-width:786px) and (max-width:1040px){
+/*画面サイズ786pxから1040pxまではここを読み込む*/
+
+    ul {
+    padding: 0;
+    width: 151px;     /* 1列分の幅+borderの1px */
+    height: 161px;    /* 4行分の高さ+borderの1px */
+    border-top: solid 1px #000;
+    border-left: solid 1px #000;
+    display: flex;
+    flex-direction: column;  /* 並び順を縦方向に変更 */
+    flex-wrap: wrap;         /* 折返し */
+    }
+    ul li {
+    list-style: none;
+    width: 150px;
+    height: 40px;
+    border-bottom: solid 1px #000;
+    border-right: solid 1px #000;
+    box-sizing: border-box;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;    /* 文字を上下中央にする */
+    }
+}
+@media screen and (min-width:1040px) and (max-width:1440px){
+    /*画面サイズ1040pxから1440pxからここを読み込む */
+        ul {
+        padding: 0;
+        width: 601px;     /* 4列分の幅+borderの1px */
+        height: 41px;    /* 1行分の高さ+borderの1px */
+        border-top: solid 1px #000;
+        border-left: solid 1px #000;
+        display: flex;
+        flex-direction: column;  /* 並び順を縦方向に変更 */
+        flex-wrap: wrap;         /* 折返し */
+        }
+        ul li {
+        list-style: none;
+        width: 150px;
+        height: 40px;
+        border-bottom: solid 1px #000;
+        border-right: solid 1px #000;
+        box-sizing: border-box;
+        padding: 0 10px;
+        display: flex;
+        align-items: center;    /* 文字を上下中央にする */
+        }
+    }
+    

@@ -1,18 +1,96 @@
 <?php
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+use App\Models\Test;
 
 class SampleController extends Controller
 {
+    
     //ホームページ
     public function home(Request $request){
-        
-        $a = "20";
-        return view('home',['old'=> $a]);
+        $a = "20";//歳の初期値
+
+        $sort = $request->sort;//ページャ・ページネーション
+        $products = Test::paginate(3);
+
+        $tests = Test::orderBy('id', 'desc')->get();//データの新しいものから順に上に出てくる
+
+        $count = Test::count();//データ(レコード)の数
+
+        $data = [
+            'old'=> $a,
+            'sort' => $sort,
+            'product' => $products,
+            'tests'=>$tests,
+            'count'=>$count
+        ];
+
+        return view('home',$data);
     }
+    //idを消す
+    public function delete(Request $request){
+        $a = "20";//歳の初期値
+        $delete_id = $request->delete_id; 
+        Test::where('id', $delete_id)->delete();
+
+        $sort = $request->sort;//ページャ・ページネーション
+        $products = Test::paginate(3);
+
+        $tests = Test::orderBy('id', 'desc')->get();//データの新しいものから順に上に出てくる
+
+        $count = Test::count();//データ(レコード)の数
+
+        $data = [
+            'old'=> $a,
+            'sort' => $sort,
+            'product' => $products,
+            'tests'=>$tests,
+            'count'=>$count
+        ];
+        return view('home',$data);
+    }
+    
     //ホームページ２
     public function pen(){
         return view('pen');
+    }
+
+    //ホームページで書き込まれた値を保存する
+    public function homecount(Request $request){
+
+        //新しいレコードの追加
+        $testModel = new Test;
+        $saveData = $request->all();
+        $testModel->fill($saveData)->save();
+        $a = "20";
+        $tests = Test::orderBy('id', 'desc')->get();
+        $count = Test::count();
+        $sort = $request->sort;
+        $products = Test::paginate(3);
+        $data = [
+            'old'=> $a,
+            'tests'=>$tests,
+            'count'=>$count,
+            'product' => $products,
+            'sort' => $sort
+        ];
+
+        return view('home',$data);
+    }
+
+    //ホームページで書き込まれた値を保存する2
+    public function homes(Request $request){
+        $message = $request->message;
+        $name = $request->name;
+        $years = $request->years;
+      
+        $data = [
+            'message' => $message,
+            'name' => $name,
+            'years' => $years
+        ];
+
+        return view('homes',$data);
     }
 
     //計算機

@@ -16,6 +16,16 @@ use Illuminate\Http\Request;
 
 //ホームページのTOP
 Route::GET('/home', 'App\Http\Controllers\SampleController@home')->name('home');
+
+//書き込まれた内容をModelに保存するためのページ
+Route::POST('/homecount','App\Http\Controllers\SampleController@homecount')->name('homecount');
+
+//書き込まれたidを削除するためのページ
+Route::POST('/delete','App\Http\Controllers\SampleController@delete')->name('delete');
+
+//書き込まれた内容をModelに保存するためのページ2
+Route::POST('/homes','App\Http\Controllers\SampleController@homes')->name('homes');
+
 //ペン画のホームページ
 Route::GET('/pen', 'App\Http\Controllers\SampleController@pen')->name('pen');
 
@@ -52,3 +62,4 @@ Route::GET('/e_card/{id}', 'App\Http\Controllers\SampleController@e_card')->name
 
 //歌詞当てクイズ
 Route::GET('/song_quizu/{id}', 'App\Http\Controllers\SampleController@song_quizu')->name('song_quizu{id}');
+
