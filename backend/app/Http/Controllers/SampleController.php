@@ -1,7 +1,8 @@
 <?php
 namespace App\Http\Controllers;
-use Illuminate\Http\Request;
-use App\Models\Test;
+use Illuminate\Http\Request;//他のページからこのコントローラを通じて値を処理したりする際のRequestに必要
+use App\Models\Test;//モデルを指定し、使用する際に必要
+use Illuminate\Support\Facades\DB;//データベースの値を探したりする際に必要
 
 class SampleController extends Controller
 {
@@ -11,48 +12,150 @@ class SampleController extends Controller
         $a = "20";//歳の初期値
 
         $sort = $request->sort;//ページャ・ページネーション
-        $products = Test::paginate(3);
+        $products = Test::paginate(7);
 
-        $tests = Test::orderBy('id', 'desc')->get();//データの新しいものから順に上に出てくる
+        //$tests = Test::orderBy('id', 'desc')->get();//データの新しいものから順に上に出てくる
 
         $count = Test::count();//データ(レコード)の数
 
+        //$page = Test::currentPage();//現在ページの数
+
+        $error_message = "";//何かエラーが出たときに表示するもの
+
         $data = [
-            'old'=> $a,
-            'sort' => $sort,
-            'product' => $products,
-            'tests'=>$tests,
-            'count'=>$count
+            'old'=>$a,
+            'sort'=>$sort,
+            //'tests'=>$tests,
+            'count'=>$count,
+            'products'=>$products,
+            'error_message'=>$error_message
         ];
 
         return view('home',$data);
     }
-    //idを消す
-    public function delete(Request $request){
-        $a = "20";//歳の初期値
-        $delete_id = $request->delete_id; 
-        Test::where('id', $delete_id)->delete();
 
-        $sort = $request->sort;//ページャ・ページネーション
-        $products = Test::paginate(3);
+    //メッセージを変更したい際に呼び出す
+    public function change_in(Request $request){
 
-        $tests = Test::orderBy('id', 'desc')->get();//データの新しいものから順に上に出てくる
+        $chang_id = $request->chang_id;//ホームページから取得してきたid番号
+        $page = $request->page;//ホームページから取得してきたid番号
 
-        $count = Test::count();//データ(レコード)の数
+        $id = DB::table('tests')->where('id', $chang_id)->value('id');//指定したメッセージのid
+        $years = DB::table('tests')->where('id', $chang_id)->value('years');//指定したメッセージの歳
+        $name = DB::table('tests')->where('id', $chang_id)->value('name');//指定したメッセージの名前
+        $message = DB::table('tests')->where('id', $chang_id)->value('message');//指定したメッセージの内容
 
         $data = [
-            'old'=> $a,
-            'sort' => $sort,
-            'product' => $products,
-            'tests'=>$tests,
-            'count'=>$count
+            "id"=>$id,
+            "page"=>$page,
+            "years"=>$years,
+            "name"=>$name,
+            "message"=>$message
         ];
-        return view('home',$data);
+        return view('change_page',$data);
+    }
+    //メッセージを変更し,書き直す際に呼び出す
+    public function change_out(Request $request){
+
+        $passwold = $request->passwold; //書き込まれた時と同じと思われるpasswold
+        $page = $request->page; //変更する前のページ
+        $id = $request->id; //選択されたメッセージのid
+        $years = $request->years; //変更された歳のデータ
+        $name = $request->name; //変更された歳のデータ
+        $message = $request->message; //変更されたメッセージデータ
+        $result_message = "";//結果のメッセージ
+
+        $passwold_true = DB::table('tests')->where('id', $id)->value('passwold');//指定したメッセージのpasswold
+        
+        if($passwold == $passwold_true){//もし、書き込んだパスワードと、同じだった場合
+
+            if (isset ($years)) {//もし、歳のデータに変更があった場合
+                DB::table('tests')->where('id', $id)->update(['years' => $years]);//もし、値が入力されていれば入力した数値に変更される。(歳/years)
+            } else {//もし、歳の欄に変更がなかった場合
+    
+            }
+    
+            if (isset ($name)) {//もし、名前のデータに変更があった場合
+                DB::table('tests')->where('id', $id)->update(['name' => $name]);//もし、値が入力されていれば入力した数値に変更される。(名前/name)
+            } else {//もし、名前の欄に変更がなかった場合
+    
+            }
+    
+            if (isset ($message)) {//もし、内容のデータに変更があった場合
+                DB::table('tests')->where('id', $id)->update(['message' => $message]);//もし、値が入力されていれば入力した数値に変更される。(内容/message)
+            } else {//もし、内容の欄に変更がなかった場合
+    
+            }
+
+            $years = DB::table('tests')->where('id', $id)->value('years');//指定したメッセージの歳
+            $name = DB::table('tests')->where('id', $id)->value('name');//指定したメッセージの名前
+            $message = DB::table('tests')->where('id', $id)->value('message');//指定したメッセージの内容
+
+            $result_message = "ID:".$id." ".$years."歳".$name."さんの「".$message."」との変更しました。";//結果のメッセージ
+
+        } elseif ($passwold == Null) {//もし、書き込んだパスワードと、違った場合の処理
+
+            $result_message = "あなたため変更できませんでした。";//結果のメッセージ
+
+        } else {//もし、書き込んだパスワードと、違った場合の処理
+
+            $result_message = "あなたが書き込んだパスワードはidと一致しなかったため変更できませんでした。";//結果のメッセージ
+        }
+        
+
+        $sort = $request->sort;//ページャ・ページネーション
+
+        $data = [
+            'page'=>$page,
+            'result_message'=>$result_message
+        ];
+        return view('result_answer',$data);
     }
     
     //ホームページ２
     public function pen(){
         return view('pen');
+    }
+
+    //idに該当したメッセージを消す(パスワードや、そのIDがない場合はエラーコードを入力する)
+    public function delete(Request $request){
+        $a = "20";//歳の初期値
+
+        $delete_id = $request->delete_id; //入力された消したいメッセージのid
+        $delete_passwold = $request->delete_passwold; //入力された消したいメッセージのpasswold
+        $error_message = "";//何かエラーが出たときに表示するもの
+
+        $id = DB::table('tests')->where('id', $delete_id)->value('id');
+        $passwold = DB::table('tests')->where('id', $delete_id)->value('passwold');
+
+
+        if ($delete_id == $id && $delete_passwold == $passwold) {//もし、入力されたidとpasswoldが書き込まれた際のものと適合した時消される
+            Test::where('id', $delete_id)->delete();
+
+        } elseif ($delete_id == $id) {//もし、入力されたidだけあっている場合は、passwoldが違うと表示させる
+            $error_message = "passwoldが違います、ページをリロードし入力し直してください。";
+
+        } else {//もし、入力されたidがない場合は、そのidに該当したメッセージはありませんと表示させる
+            $error_message = "指定したidに該当したメッセージはありません";
+        }
+
+
+        $sort = $request->sort;//ページャ・ページネーション
+        $products = Test::paginate(7);
+
+        //$tests = Test::orderBy('id', 'desc')->get();//データの新しいものから順に上に出てくる
+
+        $count = Test::count();//データ(レコード)の数
+
+        $data = [
+            'old'=>$a,
+            'sort'=>$sort,
+            //'tests'=>$tests,
+            'products'=>$products,
+            'count'=>$count,
+            'error_message'=>$error_message
+        ];
+        return view('home',$data);
     }
 
     //ホームページで書き込まれた値を保存する
@@ -62,17 +165,25 @@ class SampleController extends Controller
         $testModel = new Test;
         $saveData = $request->all();
         $testModel->fill($saveData)->save();
-        $a = "20";
-        $tests = Test::orderBy('id', 'desc')->get();
-        $count = Test::count();
-        $sort = $request->sort;
-        $products = Test::paginate(3);
+
+        $a = "20";//年齢の初期値
+
+        //$tests = Test::orderBy('id', 'desc')->get();//データの新しいものから順に上に出てくる
+
+        $count = Test::count();//データ(レコード)の数
+
+        $sort = $request->sort;//ページャ・ページネーション
+        $products = Test::paginate(7);
+
+        $error_message = "";//何かエラーが出たときに表示するもの
+
         $data = [
             'old'=> $a,
-            'tests'=>$tests,
+            //'tests'=>$tests,
+            'sort'=>$sort,
+            'products'=>$products,
             'count'=>$count,
-            'product' => $products,
-            'sort' => $sort
+            'error_message'=>$error_message
         ];
 
         return view('home',$data);
@@ -80,14 +191,16 @@ class SampleController extends Controller
 
     //ホームページで書き込まれた値を保存する2
     public function homes(Request $request){
-        $message = $request->message;
         $name = $request->name;
         $years = $request->years;
+        $passwold = $request->passwold;
+        $message = $request->message;
       
         $data = [
-            'message' => $message,
-            'name' => $name,
-            'years' => $years
+            'name'=>$name,
+            'years'=>$years,
+            'passwold'=>$passwold,
+            'message'=>$message
         ];
 
         return view('homes',$data);

@@ -9,11 +9,14 @@
             <h2>{{$years}}才</h2>
             <h1>{{$name}}さんが書いた内容</h1>
             <h2>{{$message}}</h2>
-            <form method="post" action="{{ route('homecount') }}">
+            <form method="POST" action="{{ route('homecount') }}"> 
+            <input type="hidden" name = "_method" value="PUT">
             @csrf
+                <input type="hidden" name = "page" value="{{$page}}">
                 <input type="hidden" name = "message" value="{{$message}}">
                 <input type="hidden" name = "name" value="{{$name}}">
                 <input type="hidden" name = "years" value="{{$years}}">
+                <input type="hidden" name = "passwold" value="{{$passwold}}">
                 <dd><button type="sumbit">合っていたらボタンを押してください。</button></dd>
             </form>
             <div>

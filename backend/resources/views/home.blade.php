@@ -88,6 +88,9 @@
             width:320px;/*横*/
             height:100px;/*縦*/
         }
+        .error_message{
+            color:red;
+        }
 
         </style>
     </head>
@@ -191,8 +194,13 @@
                 <input type="text" name="years">
                 <label>お名前</label>
                 <input type="text" name="name">
+                <br>
+                <label>パスワード(※メッセージ削除・変更の際に使用します)</label>
+                <input type="integer" name="passwold">
+                <br>
+                <br>
                 <label>お問い合わせ内容</label>
-                <input type="text" name="message">
+                <textarea type="text" name="message"></textarea>
                 <br>
                 <br>
                 <dd><button type="sumbit">書き込む</button></dd>
@@ -202,28 +210,38 @@
             </div>
             <div class ="mass">
                 <div class ="scroll more_min_message">
-                    @foreach($tests as $test)
+                    @foreach($products as $test)
                     <div class ="min_message ">
-                            <p>ID:{{$test->id}} {{$test->years}}歳の{{$test->name}}さんが「{{$test->message}}」と書き込みました</p>
+                            <form  action = "{{route('change_in')}}">
+                                ID:{{$test->id}} {{$test->years}}歳の{{$test->name}}さんが「{{$test->message}}」と書き込みました
+                                <input type="hidden" name="chang_id" value="{{$test->id}}">
+                                <input type="hidden" name="page" value="{{$products->currentPage()}}">
+                                <input type="submit" value="変更を加える">
+                            </form>
                     </div>
                     @endforeach
                     <br>
                 </div>
                 <div class ="small_size">
                     <div class ="small_size">
-                    <form method="post" action="{{ route('delete') }}">
-                        <label>削除したいメッセージのidを入力してください。</label>
-                        <input type="integer" name="delete_id">
-                        <br>
-                        <dd><button type="sumbit">削除する</button></dd>
-                        @csrf
-                    </form>
+                        <form method="post" action="{{ route('delete') }}">
+                            <p>削除したいメッセージのidと対応したパスワードを入力してください。</p>
+                            <label>id</label>
+                            <input type="integer" name="delete_id">
+
+                            <label>passwold</label>
+                            <input type="integer" name="delete_passwold">
+                            <dd><button type="sumbit">削除する</button></dd>
+                            <p class="error_message">{{$error_message}}</p>
+                            @csrf
+                        </form>
                     </div>
                 </div>
             </div>
             <br>
             <div class="small_size">
-            {{$product->links()}}
+                <p>現在のページ番号は   {{$products->currentPage()}} です</p>
+                {{$products->links()}}
             </div>
             <p><SITE>作成：小関一輝</SITE></p>
             <p><strong>GIF素材提供：<span><a href="http://katus-gifani.sakura.ne.jp/sozai01.html">カツのGIFアニメ</a></span>様</strong></p>

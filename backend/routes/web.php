@@ -18,13 +18,17 @@ use Illuminate\Http\Request;
 Route::GET('/home', 'App\Http\Controllers\SampleController@home')->name('home');
 
 //書き込まれた内容をModelに保存するためのページ
-Route::POST('/homecount','App\Http\Controllers\SampleController@homecount')->name('homecount');
-
-//書き込まれたidを削除するためのページ
-Route::POST('/delete','App\Http\Controllers\SampleController@delete')->name('delete');
-
-//書き込まれた内容をModelに保存するためのページ2
 Route::POST('/homes','App\Http\Controllers\SampleController@homes')->name('homes');
+//書き込まれた内容をModelに保存するためのページ２
+Route::PUT('/homecount','App\Http\Controllers\SampleController@homecount')->name('homecount');
+
+//ホームページの掲示板に書き込まれた値を変更したい場合
+Route::GET('/change_in', 'App\Http\Controllers\SampleController@change_in')->name('change_in');
+//ホームページの掲示板に書き込まれた値を変更を更新する場合
+Route::PUT('/change_out', 'App\Http\Controllers\SampleController@change_out')->name('change_out');
+
+//書き込まれたメッセージをidを元に削除するためのページ
+Route::POST('/delete','App\Http\Controllers\SampleController@delete')->name('delete');
 
 //ペン画のホームページ
 Route::GET('/pen', 'App\Http\Controllers\SampleController@pen')->name('pen');
