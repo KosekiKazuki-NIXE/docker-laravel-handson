@@ -30,6 +30,13 @@ Route::PUT('/change_out', 'App\Http\Controllers\SampleController@change_out')->n
 //書き込まれたメッセージをidを元に削除するためのページ
 Route::POST('/delete','App\Http\Controllers\SampleController@delete')->name('delete');
 
+//掲示板のTOPページ
+Route::GET('/communication_top', 'App\Http\Controllers\ComminucationController@communication_top')->name('communication_top');
+//掲示板に書き込まれた内容をModelに保存するためのページ
+Route::POST('/communication_create','App\Http\Controllers\ComminucationController@communication_create')->name('communication_create');
+//掲示板に書き込まれた内容を保存し、表示&元のページに戻ってくる
+Route::PUT('/communication_create_terminate','App\Http\Controllers\ComminucationController@communication_create_terminate')->name('communication_create_terminate');
+
 //ペン画のホームページ
 Route::GET('/pen', 'App\Http\Controllers\SampleController@pen')->name('pen');
 

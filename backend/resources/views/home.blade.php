@@ -75,7 +75,7 @@
         }
 
         .scroll {
-            width:925px;         /*横*/
+            width:750px;         /*横*/
             height:200px;        /*縦*/
             overflow:scroll;    /*スクロールバー表示*/
             overflow-x:hidden;  /*スクロールバー横を消す */
@@ -204,7 +204,6 @@
                 <br>
                 <br>
                 <dd><button type="sumbit">書き込む</button></dd>
-                 @csrf
             </form>
             <p><strong>-----ログ:今までに{{$count}}件の書き込みがありました-----</strong></p>
             </div>

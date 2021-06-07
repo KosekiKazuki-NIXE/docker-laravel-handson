@@ -34,16 +34,17 @@ class SampleController extends Controller
         return view('home',$data);
     }
 
+    
     //メッセージを変更したい際に呼び出す
     public function change_in(Request $request){
 
         $chang_id = $request->chang_id;//ホームページから取得してきたid番号
         $page = $request->page;//ホームページから取得してきたid番号
 
-        $id = DB::table('tests')->where('id', $chang_id)->value('id');//指定したメッセージのid
-        $years = DB::table('tests')->where('id', $chang_id)->value('years');//指定したメッセージの歳
-        $name = DB::table('tests')->where('id', $chang_id)->value('name');//指定したメッセージの名前
-        $message = DB::table('tests')->where('id', $chang_id)->value('message');//指定したメッセージの内容
+        $id = Test::where('id', $chang_id)->value('id');//指定したメッセージのid
+        $years = Test::where('id', $chang_id)->value('years');//指定したメッセージの歳
+        $name = Test::where('id', $chang_id)->value('name');//指定したメッセージの名前
+        $message = Test::where('id', $chang_id)->value('message');//指定したメッセージの内容
 
         $data = [
             "id"=>$id,
@@ -70,26 +71,26 @@ class SampleController extends Controller
         if($passwold == $passwold_true){//もし、書き込んだパスワードと、同じだった場合
 
             if (isset ($years)) {//もし、歳のデータに変更があった場合
-                DB::table('tests')->where('id', $id)->update(['years' => $years]);//もし、値が入力されていれば入力した数値に変更される。(歳/years)
+                Test::where('id', $id)->update(['years' => $years]);//もし、値が入力されていれば入力した数値に変更される。(歳/years)
             } else {//もし、歳の欄に変更がなかった場合
     
             }
     
             if (isset ($name)) {//もし、名前のデータに変更があった場合
-                DB::table('tests')->where('id', $id)->update(['name' => $name]);//もし、値が入力されていれば入力した数値に変更される。(名前/name)
+                Test::where('id', $id)->update(['name' => $name]);//もし、値が入力されていれば入力した数値に変更される。(名前/name)
             } else {//もし、名前の欄に変更がなかった場合
     
             }
     
             if (isset ($message)) {//もし、内容のデータに変更があった場合
-                DB::table('tests')->where('id', $id)->update(['message' => $message]);//もし、値が入力されていれば入力した数値に変更される。(内容/message)
+                Test::where('id', $id)->update(['message' => $message]);//もし、値が入力されていれば入力した数値に変更される。(内容/message)
             } else {//もし、内容の欄に変更がなかった場合
     
             }
 
-            $years = DB::table('tests')->where('id', $id)->value('years');//指定したメッセージの歳
-            $name = DB::table('tests')->where('id', $id)->value('name');//指定したメッセージの名前
-            $message = DB::table('tests')->where('id', $id)->value('message');//指定したメッセージの内容
+            $years = Test::where('id', $id)->value('years');//指定したメッセージの歳
+            $name = Test::where('id', $id)->value('name');//指定したメッセージの名前
+            $message = Test::where('id', $id)->value('message');//指定したメッセージの内容
 
             $result_message = "ID:".$id." ".$years."歳".$name."さんの「".$message."」との変更しました。";//結果のメッセージ
 
@@ -125,8 +126,8 @@ class SampleController extends Controller
         $delete_passwold = $request->delete_passwold; //入力された消したいメッセージのpasswold
         $error_message = "";//何かエラーが出たときに表示するもの
 
-        $id = DB::table('tests')->where('id', $delete_id)->value('id');
-        $passwold = DB::table('tests')->where('id', $delete_id)->value('passwold');
+        $id = Test::where('id', $delete_id)->value('id');
+        $passwold = Test::where('id', $delete_id)->value('passwold');
 
 
         if ($delete_id == $id && $delete_passwold == $passwold) {//もし、入力されたidとpasswoldが書き込まれた際のものと適合した時消される
@@ -165,6 +166,7 @@ class SampleController extends Controller
         $testModel = new Test;
         $saveData = $request->all();
         $testModel->fill($saveData)->save();
+
 
         $a = "20";//年齢の初期値
 
@@ -206,8 +208,11 @@ class SampleController extends Controller
         return view('homes',$data);
     }
 
+    
+
     //計算機
     public function calc(Request $request){
+
         return view('calc');
     }
     //計算機の計算と合計
