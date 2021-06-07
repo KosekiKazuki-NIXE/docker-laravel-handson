@@ -31,7 +31,7 @@ class SampleController extends Controller
             'error_message'=>$error_message
         ];
 
-        return view('home',$data);
+        return view('home', $data);
     }
 
     
@@ -53,7 +53,7 @@ class SampleController extends Controller
             "name"=>$name,
             "message"=>$message
         ];
-        return view('change_page',$data);
+        return view('change_page', $data);
     }
     //メッセージを変更し,書き直す際に呼び出す
     public function change_out(Request $request){
@@ -68,7 +68,7 @@ class SampleController extends Controller
 
         $passwold_true = DB::table('tests')->where('id', $id)->value('passwold');//指定したメッセージのpasswold
         
-        if($passwold == $passwold_true){//もし、書き込んだパスワードと、同じだった場合
+        if ($passwold == $passwold_true){//もし、書き込んだパスワードと、同じだった場合
 
             if (isset ($years)) {//もし、歳のデータに変更があった場合
                 Test::where('id', $id)->update(['years' => $years]);//もし、値が入力されていれば入力した数値に変更される。(歳/years)
@@ -110,7 +110,7 @@ class SampleController extends Controller
             'page'=>$page,
             'result_message'=>$result_message
         ];
-        return view('result_answer',$data);
+        return view('result_answer', $data);
     }
     
     //ホームページ２
@@ -156,7 +156,7 @@ class SampleController extends Controller
             'count'=>$count,
             'error_message'=>$error_message
         ];
-        return view('home',$data);
+        return view('home', $data);
     }
 
     //ホームページで書き込まれた値を保存する
@@ -188,7 +188,7 @@ class SampleController extends Controller
             'error_message'=>$error_message
         ];
 
-        return view('home',$data);
+        return view('home', $data);
     }
 
     //ホームページで書き込まれた値を保存する2
@@ -205,7 +205,7 @@ class SampleController extends Controller
             'message'=>$message
         ];
 
-        return view('homes',$data);
+        return view('homes', $data);
     }
 
     
@@ -263,7 +263,7 @@ class SampleController extends Controller
     //サイコロの値を渡す。
     public function daice2(){
         $daice_num = rand(1,6);
-        return view('daice2',['daice_num'=> $daice_num]);
+        return view('daice2', ['daice_num'=> $daice_num]);
     }
     
     //カードパックを開ける
@@ -287,7 +287,7 @@ class SampleController extends Controller
             $card_rank = "ホログラムレアカード";
         }
         
-        return view('card_open',['card_rank' => $card_rank]);
+        return view('card_open', ['card_rank' => $card_rank]);
     }
 
     //誕生日の入力フォーラム
@@ -299,7 +299,7 @@ class SampleController extends Controller
     public function happy(Request $request){
         $bithday = $request->bithday;
 
-        return view('happy',['bithday' => $bithday]);
+        return view('happy', ['bithday' => $bithday]);
     }
 
     //八百屋さん（果物などの数を選ぶページ）
@@ -337,7 +337,7 @@ class SampleController extends Controller
             'totals' => $totals
         ];
 
-        return view("greengrocer_total",$data);
+        return view("greengrocer_total", $data);
     }
 
     //雑学クイズのホームページを選び、idによってページをかえ、値を$dataに入れてページ間を行き来させるようにする
@@ -359,14 +359,14 @@ class SampleController extends Controller
                 $data = [
                     'quizu1_a' =>$q_1_r
                 ];
-                return view ('quizu1_answer',$data);
+                return view ('quizu1_answer', $data);
             break;
             case "2":
                 $q_1_r = $request->quizu1_a;//クイズ一問目に答えられた（プルダウン）の値を宣言している。
                 $data = [
                     'quizu1_a' =>$q_1_r
                 ];
-                return view ('quizu2',$data);
+                return view ('quizu2', $data);
             break;
             case "2_answer":
                 $q_1_r = $request->quizu1_a;
@@ -383,7 +383,7 @@ class SampleController extends Controller
                     'quizu1_a' =>$q_1_r,
                     'quizu2_a' =>$q_2_r
                 ];
-                return view ('quizu2_answer',$data);
+                return view ('quizu2_answer', $data);
             break;
             case "3":
                 $q_1_r = $request->quizu1_a;
@@ -392,7 +392,7 @@ class SampleController extends Controller
                     'quizu1_a' =>$q_1_r,
                     'quizu2_a' =>$q_2_r
                 ];
-                return view ('quizu3',$data);
+                return view ('quizu3', $data);
             break;
             case "3_answer":
                 
@@ -412,7 +412,7 @@ class SampleController extends Controller
                     'quizu2_a' =>$q_2_r,
                     'quizu3_a' =>$q_3_r
                 ];
-                return view ('quizu3_answer',$data);
+                return view ('quizu3_answer', $data);
             break;
             break;
             case "4":
@@ -424,7 +424,7 @@ class SampleController extends Controller
                     'quizu2_a' =>$q_2_r,
                     'quizu3_a' =>$q_3_r
                 ];
-                return view ('quizu4',$data);
+                return view ('quizu4', $data);
             break;
             case "4_answer":
                 $q_1_r = $request->quizu1_a;
@@ -446,7 +446,7 @@ class SampleController extends Controller
                     'quizu3_a' =>$q_3_r,
                     'quizu4_a' =>$q_4_r
                 ];
-                return view ('quizu4_answer',$data);
+                return view ('quizu4_answer', $data);
             break;
             case "answer":
                 $q_1_r = $request->quizu1_a;
@@ -460,7 +460,7 @@ class SampleController extends Controller
                     'quizu3_a' =>$q_3_r,
                     'quizu4_a' =>$q_4_r
                 ];
-                return view('quizu_answer',$data);
+                return view('quizu_answer', $data);
             break;
             default:
         }
@@ -539,7 +539,7 @@ class SampleController extends Controller
                     'card_answer_your' =>$e_card_num_your,
                     'e_card_num_mine' =>$e_card_num_mine
                 ];
-                return view ('e_card_answer',$data);
+                return view ('e_card_answer', $data);
             break;
             default:
         }
@@ -563,7 +563,7 @@ class SampleController extends Controller
                 $data = [
                     'song_quizu1_a' =>$sq_1_r
                 ];
-                return view ('song_quizu1_answer',$data);
+                return view ('song_quizu1_answer', $data);
             break;
             case "2":
                 $sq_1_r = $request->song_quizu1_a;//クイズ一問目に答えられた（プルダウン）の値を宣言している。
@@ -585,7 +585,7 @@ class SampleController extends Controller
                     'song_quizu1_a' =>$sq_1_r,
                     'song_quizu2_a' =>$sq_2_r
                 ];
-                return view ('song_quizu2_answer',$data);
+                return view ('song_quizu2_answer', $data);
             break;
             case "3":
                 $sq_1_r = $request->song_quizu1_a;
@@ -594,7 +594,7 @@ class SampleController extends Controller
                     'song_quizu1_a' =>$sq_1_r,
                     'song_quizu2_a' =>$sq_2_r
                 ];
-                return view ('song_quizu3',$data);
+                return view ('song_quizu3', $data);
             break;
             case "3_answer":
                 
@@ -612,7 +612,7 @@ class SampleController extends Controller
                     'song_quizu2_a' =>$sq_2_r,
                     'song_quizu3_a' =>$sq_3_r
                 ];
-                return view ('song_quizu3_answer',$data);
+                return view ('song_quizu3_answer', $data);
             break;
             case "answer":
                 $sq_1_r = $request->song_quizu1_a;
@@ -650,7 +650,7 @@ class SampleController extends Controller
                     'song_quizu3_a' =>$sq_3_r,
                     'score' => $score
                 ];
-                return view('song_quizu_answer',$data);
+                return view('song_quizu_answer', $data);
             break;
             default:
         }

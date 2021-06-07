@@ -14,7 +14,7 @@ class ComminucationController extends Controller{
         $data = [
             "communication_talk_log"=>$communication_talk_log
         ];
-    return view('communication_top',$data);
+    return view('communication_top', $data);
     }
 
     //0840チャンネルの掲示板に書き込む際に、空白だったりした場合に値を入れるなどを判断して値を送る場所
@@ -51,11 +51,11 @@ class ComminucationController extends Controller{
         dd($request->file());
         $upload_image = $request->file('image');
     
-        if($upload_image) {
+        if ($upload_image) {
 			//アップロードされた画像を保存する
 			$path = $upload_image->store('uploads',"public");
 			//画像の保存に成功したらDBに記録する
-			if($path){
+			if ($path){
 				Communication::create([
 					"file_name" => $upload_image->getClientOriginalName(),
                     "file_path" => $path,
@@ -76,7 +76,7 @@ class ComminucationController extends Controller{
             'message'=>$message
         ];
 
-        return view('communication_create',$data);
+        return view('communication_create', $data);
         
     }
 
@@ -135,7 +135,7 @@ class ComminucationController extends Controller{
             "happy_message"=>$happy_message
         ];
         
-        return view("communication_create_terminate",$data);
+        return view("communication_create_terminate", $data);
 
     }
 
