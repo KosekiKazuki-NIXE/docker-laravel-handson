@@ -2,7 +2,6 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;//他のページからこのコントローラを通じて値を処理したりする際のRequestに必要
 use App\Models\Test;//モデルを指定し、使用する際に必要
-use Illuminate\Support\Facades\DB;//データベースの値を探したりする際に必要
 
 class SampleController extends Controller
 {
